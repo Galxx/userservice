@@ -1,0 +1,47 @@
+
+server:
+  port: 3000
+  error:
+    whitelabel:
+      enabled: false
+
+logging:
+  level:
+    root: info
+    org.springframework.web: ERROR
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          auth0:
+            client-id: GZTCPWw1Wvz9zH1qZEuPH2zC3HRIw4Iy
+            client-secret: BPS3mfaQANRgHFhfpAeKc845WfW3zVqr6Hrnok5zjsWAgSfFUHTGD3pfbqAXMiwg
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          auth0:
+            # trailing slash is important!
+            issuer-uri: https://dev-ae3q5t9f.us.auth0.com/
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-ae3q5t9f.us.auth0.com/
+  datasource:
+#    url=: jdbc:postgresql://localhost:5432/postgres?currentSchema=user_service
+    url=: jdbc:postgresql://postgres:5432/postgres?currentSchema=user_service
+    jdbc-url: ${spring.datasource.url}
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 1234
+  flyway:
+      locations: classpath:db/migration
+      url: ${spring.datasource.url}
+      user: postgres
+      password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: validate
+#debug: true
